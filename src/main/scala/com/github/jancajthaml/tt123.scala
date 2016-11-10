@@ -71,8 +71,7 @@ case class GNodeImpl(name: String, children: List[GNode] = List.empty[GNode]) ex
   def paths(node: GNode): List[List[GNode]] = {
     def walk(next: GNode, visited: List[GNode] = List.empty[GNode]): List[List[GNode]] = {
       if (next.getChildren.isEmpty) List((next :: visited).reverse)
-      else
-        next.getChildren.flatMap(node => walk(node, next :: visited))
+      else next.getChildren.flatMap(node => walk(node, next :: visited))
     }
     walk(node)
   }

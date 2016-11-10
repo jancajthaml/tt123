@@ -1,17 +1,18 @@
 #!/usr/bin/python
 
 import sys
+import re
+import numpy
+from operator import itemgetter
 
-words = []
-lines = sys.stdin.readlines()
+buffer = []
 
-for i in xrange(len(lines)):
-  words.extend(lines[i].replace('\n','').split(' '))
+for line in sys.stdin:
+  buffer.extend(re.split('[\s|,|.]+', line))
 
-counter = { key: 0 for key in set(words) }
+words, counts = numpy.unique(buffer, return_counts=True)
 
-for x in words:
-  counter[x] += 1
-
-for k, v in counter.items():
+for k, v in zip(words, counts):
+  if k == '':
+    continue
   print k, v
