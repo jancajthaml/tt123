@@ -20,9 +20,24 @@ class Specs extends FlatSpec with Matchers {
       ))
     ))
 
-    graph.walkGraph(graph)
+    val reference =  List(
+      GNodeImpl("A"),
+      GNodeImpl("B"),
+      GNodeImpl("C"),
+      GNodeImpl("D"),
+      GNodeImpl("E"),
+      GNodeImpl("F"),
+      GNodeImpl("G"),
+      GNodeImpl("H"),
+      GNodeImpl("J"),
+      GNodeImpl("I")
+    )
 
-    1 should === (1)
+    val result = graph.walkGraph(graph)
+
+    println(s"walkGraph -> ${result}")
+
+    result.map(_.toString) should contain theSameElementsAs reference.map(_.toString)
   }
 
   "paths" should "find all paths from root to tail (DFS tuples)" in {

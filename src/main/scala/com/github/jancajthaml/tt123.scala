@@ -21,6 +21,8 @@ case class GNodeImpl(name: String, children: List[GNode] = List.empty[GNode]) ex
 
   def getChildren: List[GNode] = children
 
+  override def toString(): String = name
+
   /*
     Implement a function with the following signature:
       def walkGraph(node: GNode): List[GNode]
@@ -37,9 +39,7 @@ case class GNodeImpl(name: String, children: List[GNode] = List.empty[GNode]) ex
         walk(iter, next.flatMap(node => node.getChildren))
       }
     }
-    val r = walk(List.empty[GNode], List(this))
-    println(s"walkGraph -> ${r}")
-    r
+    walk(List.empty[GNode], List(this))
   }
 
   /*
