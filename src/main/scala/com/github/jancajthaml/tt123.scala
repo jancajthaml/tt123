@@ -39,7 +39,7 @@ case class GNodeImpl(name: String, children: List[GNode] = List.empty[GNode]) ex
         walk(iter, next.flatMap(node => node.getChildren))
       }
     }
-    walk(List.empty[GNode], List(this))
+    walk(List.empty[GNode], List(node))
   }
 
   /*
@@ -74,6 +74,6 @@ case class GNodeImpl(name: String, children: List[GNode] = List.empty[GNode]) ex
       else
         next.getChildren.flatMap(node => walk(node, next :: visited))
     }
-    walk(this)
+    walk(node)
   }
 }
