@@ -68,6 +68,15 @@ case class GNodeImpl(name: String, children: List[GNode] = List.empty[GNode]) ex
 
     paths(A) = ( (A B E) (A B F) (A C G) (A C H) (A C I) (A D J) )
   */
-  def paths(node: GNode): List[List[GNode]] = ???
+  def paths(node: GNode): List[List[GNode]] = {
+    def walk(next: GNode, visited: List[GNode] = List.empty[GNode]): List[List[GNode]] = {
+      if (next.getChildren.isEmpty) List((next :: visited).reverse)
+      else
+        next.getChildren.flatMap(node => walk(node, next :: visited))
+    }
+    val x = walk(this)
+    println(s"paths -> ${x}")
+    x
+  }
 
 }

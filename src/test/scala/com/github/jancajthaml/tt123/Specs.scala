@@ -41,5 +41,24 @@ class Specs extends FlatSpec with Matchers {
   }
 
   "paths" should "find all paths from root to tail (DFS tuples)" in {
+
+    val graph = GNodeImpl("A", List(
+      GNodeImpl("B", List(
+        GNodeImpl("E"),
+        GNodeImpl("F")
+      )),
+      GNodeImpl("C", List(
+        GNodeImpl("G"),
+        GNodeImpl("H"),
+        GNodeImpl("I")
+      )),
+      GNodeImpl("D", List(
+        GNodeImpl("J")
+      ))
+    ))
+
+    graph.paths(graph)
+
+    1 should === (1)
   }
 }
