@@ -74,9 +74,6 @@ case class GNodeImpl(name: String, children: List[GNode] = List.empty[GNode]) ex
       else
         next.getChildren.flatMap(node => walk(node, next :: visited))
     }
-    val x = walk(this)
-    println(s"paths -> ${x}")
-    x
+    walk(this)
   }
-
 }

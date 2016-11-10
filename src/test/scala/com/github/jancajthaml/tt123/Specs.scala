@@ -4,22 +4,22 @@ import org.scalatest.{FlatSpec, Matchers}
 
 class Specs extends FlatSpec with Matchers {
 
-  "walkGraph" should "traverse each node exactly once (BFS traversal)" in {
-    val graph = GNodeImpl("A", List(
-      GNodeImpl("B", List(
-        GNodeImpl("E"),
-        GNodeImpl("F")
-      )),
-      GNodeImpl("C", List(
-        GNodeImpl("G"),
-        GNodeImpl("H"),
-        GNodeImpl("I")
-      )),
-      GNodeImpl("D", List(
-        GNodeImpl("J")
-      ))
+  val graph = GNodeImpl("A", List(
+    GNodeImpl("B", List(
+      GNodeImpl("E"),
+      GNodeImpl("F")
+    )),
+    GNodeImpl("C", List(
+      GNodeImpl("G"),
+      GNodeImpl("H"),
+      GNodeImpl("I")
+    )),
+    GNodeImpl("D", List(
+      GNodeImpl("J")
     ))
+  ))
 
+  "walkGraph" should "traverse each node exactly once (BFS traversal)" in {
     val reference =  List(
       GNodeImpl("A"),
       GNodeImpl("B"),
@@ -41,24 +41,19 @@ class Specs extends FlatSpec with Matchers {
   }
 
   "paths" should "find all paths from root to tail (DFS tuples)" in {
+    val reference =  List(
+      List(GNodeImpl("A"), GNodeImpl("B"), GNodeImpl("E")),
+      List(GNodeImpl("A"), GNodeImpl("B"), GNodeImpl("F")),
+      List(GNodeImpl("A"), GNodeImpl("C"), GNodeImpl("G")),
+      List(GNodeImpl("A"), GNodeImpl("C"), GNodeImpl("H")),
+      List(GNodeImpl("A"), GNodeImpl("C"), GNodeImpl("I")),
+      List(GNodeImpl("A"), GNodeImpl("D"), GNodeImpl("J"))
+    )
 
-    val graph = GNodeImpl("A", List(
-      GNodeImpl("B", List(
-        GNodeImpl("E"),
-        GNodeImpl("F")
-      )),
-      GNodeImpl("C", List(
-        GNodeImpl("G"),
-        GNodeImpl("H"),
-        GNodeImpl("I")
-      )),
-      GNodeImpl("D", List(
-        GNodeImpl("J")
-      ))
-    ))
+    val result = graph.paths(graph)
 
-    graph.paths(graph)
+    println(s"paths -> ${result}")
 
-    1 should === (1)
+    result.map(_.map(_.toString)) should contain theSameElementsAs reference.map(_.map(_.toString))
   }
 }
