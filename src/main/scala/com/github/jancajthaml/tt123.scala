@@ -28,7 +28,19 @@ case class GNodeImpl(name: String, children: List[GNode] = List.empty[GNode]) ex
     which should return a List containing every GNode in the graph.
     Each node should appear in the List exactly once (i.e. no duplicates).
   */
-  def walkGraph(node: GNode): List[GNode] = ???
+  def walkGraph(node: GNode): List[GNode] = {
+    @scala.annotation.tailrec
+    def walk(result: List[GNode], next: List[GNode]): List[GNode] = next match {
+      case Nil => result.reverse
+      case _ => {
+        val iter = next.foldLeft(result)((stack, a) => a :: stack)
+        walk(iter, next.flatMap(node => node.getChildren))
+      }
+    }
+    val r = walk(List.empty[GNode], List(this))
+    println(s"walkGraph -> ${r}")
+    r
+  }
 
   /*
     Implement a function with the following signature:
