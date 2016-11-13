@@ -15,4 +15,4 @@ words, counts = numpy.unique(buffer, return_counts=True)
 for k, v in zip(words, counts):
   if k == '':
     continue
-  print k, v
+  print('{0} {1}'.format(v,k))
